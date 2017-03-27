@@ -2,3 +2,5 @@ node_modules
 dist
 app.css
 app.css.map
+.surgeignore
+.DS_Store
