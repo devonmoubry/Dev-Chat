@@ -14,3 +14,11 @@ html {
         background: #CACACA;
     }
 }
+
+input:valid:required {
+  border: 2px green solid;
+}
+
+input:invalid {
+  box-shadow: 0 0 5px 1px red;
+}
