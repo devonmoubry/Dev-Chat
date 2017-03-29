@@ -29,6 +29,16 @@ Remember to access tiny pizza server via https in your ajax requests, as apps de
 setInterval() will enable you to run a function repeatedly after a specified amount of time has passed (such as refreshing the messages on page).
 the Moment.js library may come in handy for displaying dates or timestamps with a nice format.
 
+## Building
+
+To build the application:
+
+1. `cd /Users/devon/Documents/tiy/day-21/webpack-starter-master`
+2. `npm run build` to build the project
+3. `tree dist` to make sure the compiled files were generated
+4. `cd dist`
+5. `surge .` to deploy
+
 ---------------------
 Created by Devon Moubry.
 devon@moubry.com
