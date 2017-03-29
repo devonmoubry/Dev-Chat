@@ -81,6 +81,7 @@ export default function app() {
     // insert into dom: username, body, timestamp, delete button
     // event handler on the delete button
     function renderMessages() {
+      console.log('Rendering messages.');
       var settings = {
         type: 'GET',
         dataType: 'json',
@@ -100,6 +101,12 @@ export default function app() {
         });
       });
     }
+
+    setInterval(function() {
+      if (session && session.username) {
+        renderMessages();
+      }
+    }, 2000);
 
     renderLogin();
 }
