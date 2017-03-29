@@ -1,8 +1,7 @@
 export default function app() {
-    let session;
+    const moment = require('moment');
 
-  	//const moment = require('moment');
-  	//moment().format("ddd, MMM Do YY, h:mm a");
+    let session;
 
     function Session(username) {
       'use strict';
@@ -16,6 +15,10 @@ export default function app() {
       this.sender = sender;
       this.body = body;
       this.timestamp = timestamp;
+
+      this.prettyTimestamp = function () {
+          return moment(this.timestamp).format("ddd, MMM Do YY, h:mm a")
+      }
     }
 
     // Message.prototype.save = function() {
