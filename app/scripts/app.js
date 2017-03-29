@@ -21,12 +21,22 @@ export default function app() {
       }
     }
 
-    // Message.prototype.save = function() {
-    //
-    // }
-    //
-    // Message.prototype.delete = function() {
-    // }
+    Message.prototype.save = function() {
+      var settings = {
+        type: 'POST',
+        contentType: 'application/json',
+        url: 'http://tiny-za-server.herokuapp.com/collections/devonmoubry-devchat',
+        data: JSON.stringify({
+          sender: this.sender,
+          body: this.body,
+          timestamp: this.timestamp
+        })
+      }
+
+      $.ajax(settings).then(function(data, status, xhr) {
+          renderMessages();
+      })
+    }
 
     function renderLogin() {
     	const $usernameSubmit = $('#submitUsername');
@@ -43,6 +53,8 @@ export default function app() {
     function renderChat() {
       $('#chatContainer').show();
 
+      renderMessages();
+
       $('#messageWritingSpace').submit(function(event) {
         event.preventDefault();
 
@@ -52,9 +64,27 @@ export default function app() {
         let message = new Message(sender, newMessage, timestamp);
 
         console.log(message);
+        message.save();
       });
     }
 
+    // ajax GET new message data array function
+    // insert into dom: username, body, timestamp, delete button
+    //event handler on the delete button
+    function renderMessages() {
+      var settings = {
+        type: 'GET',
+        dataType: 'json',
+        url: 'http://tiny-za-server.herokuapp.com/collections/devonmoubry-devchat',
+      }
+      $.ajax(settings).then(function(data, status, xhr) {
+        $('ul').empty();
+        data.forEach(function(message, key, listObj, argument) {
+          $('ul').prepend('<li><div class="sender">' + message.sender + '</div><div class="body">' + message.body + '</div><div class="timestamp">' + message.timestamp + '</div><a id="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a></li>');
+        })
+      });
+
+    }
 
 
     renderLogin();
