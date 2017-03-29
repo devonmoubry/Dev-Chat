@@ -18,7 +18,7 @@ export default function app() {
     }
 
     Message.prototype.save = function() {
-      var settings = {
+      let settings = {
         type: 'POST',
         contentType: 'application/json',
         url: 'http://tiny-za-server.herokuapp.com/collections/devonmoubry-devchat',
@@ -32,6 +32,19 @@ export default function app() {
       $.ajax(settings).then(function(data, status, xhr) {
           renderMessages();
       })
+    }
+
+    Message.prototype.delete = function(id, sender) {
+      if (session.username == sender) {
+        let deleteMessageSettings = {
+            type: 'DELETE',
+            url: 'http://tiny-za-server.herokuapp.com/collections/devonmoubry-devchat/' + id
+        };
+
+        $.ajax(deleteMessageSettings).then(function(data, status, xhr) {
+            renderMessages();
+        });
+      }
     }
 
     function renderLogin() {
@@ -66,20 +79,26 @@ export default function app() {
 
     // ajax GET new message data array function
     // insert into dom: username, body, timestamp, delete button
-    //event handler on the delete button
+    // event handler on the delete button
     function renderMessages() {
       var settings = {
         type: 'GET',
         dataType: 'json',
         url: 'http://tiny-za-server.herokuapp.com/collections/devonmoubry-devchat',
       }
+
       $.ajax(settings).then(function(data, status, xhr) {
         $('ul').empty();
         data.forEach(function(message, key, listObj, argument) {
-          $('ul').prepend('<li><div class="sender">' + message.sender + '</div><div class="body">' + message.body + '</div><div class="timestamp">' + moment(message.timestamp).format("ddd, MMM Do YY, h:mm a") + '</div><a id="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a></li>');
-        })
-      });
+          $('ul').prepend('<li><div class="sender">' + message.sender + '</div><div class="body">' + message.body + '</div><div class="timestamp">' + moment(message.timestamp).format("ddd, MMM Do YY, h:mm a") + '</div><a class="deleteMessage" id="' + message._id + '" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a></li>');
+        });
 
+        $('.deleteMessage').click(function(event) {
+          const id = event.currentTarget.id;
+          const sender = event.currentTarget.parentElement.querySelector('.sender').innerHTML;
+          Message.prototype.delete(id, sender);
+        });
+      });
     }
 
     renderLogin();
