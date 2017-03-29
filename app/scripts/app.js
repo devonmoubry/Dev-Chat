@@ -1,16 +1,16 @@
 export default function app() {
     let session;
-    let username;
+
   	const moment = require('moment');
-  	 console.log(moment().format());
-  	// all your codes are belong to us
+  	 console.log(moment().format("ddd, MMM Do YY, h:mm a"));
+
     function Session(username) {
       'use strict';
 
       this.username = username;
     }
 
-    function Message (sender, body, timestamp) {
+    function Message(sender, body, timestamp) {
       'use strict'
 
       this.sender = sender;
@@ -19,28 +19,41 @@ export default function app() {
     }
 
     Message.prototype.save = function() {
-
+      // console.log('hello');
+      // let newMessage = event.currentTarget[0].value;
+      // let settings = {
+      //   type: 'POST',
+      //   contentType: 'json',
+      //   url: 'http://tiny-za-server.herokuapp.com/collections/devonmoubry-devchat',
+      //   data: newMessage
+      // }
     }
 
     Message.prototype.delete = function() {
-
+      //   let id = event.currentTarget.id;
+      //   let url = 'http://tiny-za-server.herokuapp.com/collections/devonmoubry-devchat' + id;
+      //   let deleteSetting = {
+      //     type: 'DELETE',
+      //     url: url
+      //   }
+      //
+      // $ajax(deleteSetting).then(function(data, status, xhr) {
+      //   renderChat();
+      // })
     }
 
     function renderLogin() {
-    	const $usernameSubmit = $('.submitUsername');
+    	const $usernameSubmit = $('#submitUsername');
     	$usernameSubmit.submit(function(event) {
     		event.preventDefault();
-        username = event.target[0].value;
-    		session = new Session(username);
-
+    		session = new Session(event.currentTarget[0].value);
+        $('#loginContainer').hide();;
+        $('#chatContainer').show();
     		console.log(session);
-
     	});
     }
 
     function renderChat() {
-      //$('.loginContainer').remove();
-      //
       // let settings = {
       //   type: 'GET',
       //   dataType: 'json',
@@ -52,12 +65,24 @@ export default function app() {
       //     $('ul').append('<li><div class="sender"> + "Devon" + </div><div class="body"> + "Hello there" + </div><div class="timestamp"> + "beer o’clock" + </div><a id="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a></li>');
       //   })
       // })
+      //
+      // $('a').on('click', function(event) {
+      //   message.delete();
+      // });
+
     }
 
-    function renderMessage() {
-
+    function renderMessages() {
+      // $('#sendMessage').submit(function(event) {
+      //   event.preventDefault;
+      //   newMessage.save();
+      // })
+      // $.ajax(settings).then(function(data, status, xhr) {
+      //   renderChat();
+      // })
     }
-  renderLogin();
+
+    renderLogin();
 }
 
 // http://tiny-za-server.herokuapp.com/collections/devonmoubry-devchat

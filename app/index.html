@@ -8,20 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <div class="loginContainer">
+    <div id="loginContainer">
       <h1>Welcome to Dev Chat!</h1>
       <p id="instructions">Please type your username to enter Dev Chat.</p>
-      <form class="submitUsername seen">
-        <input type="text" id="username" required="" placeholder="username">
-        <input type="submit" value="Join Chat">
+      <form id="submitUsername">
+        <input type="text" required="" placeholder="username">
+        <input type="submit" value="Join Chat" id="submitUsername">
       </form>
       <img src="./images/cake.jpg" alt="">
     </div>
-    <div class="chatContainer">
-      <ul class="messages hidden"></ul>
+    <div id="chatContainer" class="hidden">
+      <ul class="messages"></ul>
       <form id="messageWritingSpace" method="post">
         <input type="text" name="add new message" placeholder="Message DevChat">
-        <input class="submit" type="submit" value="Send Chat Message">
+        <input class="submit" type="submit" value="Send Chat Message" id="sendMessage">
       </form>
     </div>
     <script src="./app.js"></script>
