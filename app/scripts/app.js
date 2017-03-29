@@ -15,10 +15,6 @@ export default function app() {
       this.sender = sender;
       this.body = body;
       this.timestamp = timestamp;
-
-      this.prettyTimestamp = function () {
-          return moment(this.timestamp).format("ddd, MMM Do YY, h:mm a")
-      }
     }
 
     Message.prototype.save = function() {
@@ -80,12 +76,11 @@ export default function app() {
       $.ajax(settings).then(function(data, status, xhr) {
         $('ul').empty();
         data.forEach(function(message, key, listObj, argument) {
-          $('ul').prepend('<li><div class="sender">' + message.sender + '</div><div class="body">' + message.body + '</div><div class="timestamp">' + message.timestamp + '</div><a id="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a></li>');
+          $('ul').prepend('<li><div class="sender">' + message.sender + '</div><div class="body">' + message.body + '</div><div class="timestamp">' + moment(message.timestamp).format("ddd, MMM Do YY, h:mm a") + '</div><a id="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a></li>');
         })
       });
 
     }
-
 
     renderLogin();
 }
